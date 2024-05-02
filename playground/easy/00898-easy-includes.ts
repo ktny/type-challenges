@@ -18,7 +18,21 @@
 
 /* _____________ ここにコードを記入 _____________ */
 
-type Includes<T extends readonly any[], U> = any
+
+/**
+Returns a boolean for whether given two types are equal.
+@link https://github.com/microsoft/TypeScript/issues/27024#issuecomment-421529650
+*/
+type IsEqual<T, U> =
+	(<G>() => G extends T ? 1 : 2) extends
+	(<G>() => G extends U ? 1 : 2)
+		? true
+		: false;
+
+type Includes<T extends readonly any[], U> = true extends {
+  [I in keyof T]: IsEqual<T[I], U>
+}[number] ? true : false;
+
 
 /* _____________ テストケース _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
