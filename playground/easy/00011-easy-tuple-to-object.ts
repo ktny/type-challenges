@@ -20,7 +20,7 @@
 
 /* _____________ ここにコードを記入 _____________ */
 
-type TupleToObject<T extends readonly any[]> = any
+type TupleToObject<T extends readonly any[]> = {[k in T[number]]: k}
 
 /* _____________ テストケース _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
